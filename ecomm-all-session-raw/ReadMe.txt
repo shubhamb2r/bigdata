@@ -18,7 +18,7 @@ Qwicklabs  - https://www.qwiklabs.com/focuses/4415?parent=catalog
 
 
 -- Converting the productSKU column data type to String			-- automatically it is taking string type
--- Remove itemQuantity and itemRevenue column						-- not considered while creating schema hence will be dropped out automatically
+-- Remove itemQuantity and itemRevenue column					-- not considered while creating schema hence will be dropped out automatically
 Remove duplicate rows											-- lets use beam's distinct function (https://beam.apache.org/documentation/transforms/python/aggregation/distinct/)
 -- Remove rows totalTransactionRevenue = null value				-- lets add a if check for null
 -- Remove rows type != PAGE										-- lets adda if check for type == page
@@ -73,3 +73,11 @@ Remove dupicates if any
 
 
 ========= for rev_transactions pipeline =========================================================================
+made same operations as all_sessions_raw
+
+
+
+
+Once transformation is done 
+	-	change this pipeline to accept values through options and from command or a json
+	-	create a single pipeline to transform multiple tables (need some R & D)
