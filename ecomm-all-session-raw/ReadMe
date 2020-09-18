@@ -1,0 +1,75 @@
+
+tables will be
+
+-- all_sessions_raw
+-- products
+-- categories
+-- checkout_nudge
+-- rev_transactions
+
+
+
+Qwicklabs  - https://www.qwiklabs.com/focuses/4415?parent=catalog
+
+
+============== All_Session_raw pipeline =============================================================
+-- REmove duplicate is pending.
+-- removing slash from category is pending
+
+
+-- Converting the productSKU column data type to String			-- automatically it is taking string type
+-- Remove itemQuantity and itemRevenue column						-- not considered while creating schema hence will be dropped out automatically
+Remove duplicate rows											-- lets use beam's distinct function (https://beam.apache.org/documentation/transforms/python/aggregation/distinct/)
+-- Remove rows totalTransactionRevenue = null value				-- lets add a if check for null
+-- Remove rows type != PAGE										-- lets adda if check for type == page
+
+
+Enriching the data
+-- Creating a new column for a unique session ID			
+		-- create a column in schema with name unique_session_id (String) -> and its value = fullVisitorId + "-" + visitId
+		
+-- Creating a case statement for the ecommerce action type
+		-- create a new column with name eCommerceAction_label (String) -> map values of eCommerceAction_type to by passing throug a case to it
+		
+		
+-- Adjusting values in the totalTransactionRevenue column
+		totalTransactionRevenue1 = totalTransactionRevenue / 1000000
+		
+		
+mvn compile exec:java \
+      -Dexec.mainClass=com.work.gcp.bigquery.ecom.cleanup.AllSessionRawCleanupApp \
+      -Dexec.args="--project=focus-task-271908 \
+      --stagingLocation=gs://word-count-result/bq-results \
+      --runner=DataflowRunner \
+      --numWorkers=2
+	  --region=asia-southeast1"  -Pdataflow-runner
+		
+
+		
+		
+		
+Note ::: for one issue I have removed column searchKeyword
+
+
+
+
+======= for category pipeline =========================================================================
+-- Remove duplicate is pending.
+-- removing slash from category is pending
+-- running and testing is pending
+
+
+
+========== for products pipeline =========================================================================
+
+trim SKU
+Remove starting and trailing whitespaces for name column
+for other columns make 0 if null
+Remove dupicates if any
+
+
+============ for checkout_nudge pipeline =========================================================================
+
+
+
+========= for rev_transactions pipeline =========================================================================
