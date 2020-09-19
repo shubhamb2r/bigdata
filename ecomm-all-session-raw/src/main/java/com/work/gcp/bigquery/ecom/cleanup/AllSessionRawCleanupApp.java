@@ -19,7 +19,7 @@ import com.work.gcp.bigquery.ecom.cleanup.transforms.AllSessionRawTrasformRowFn;
 public class AllSessionRawCleanupApp {
 
 	/* This is to test 1000 records and it worked */
-	public static final String SELECT_1000_RECORDS 
+	public static final String SELECT_ALL_RECORDS 
 	= "SELECT * FROM `data-to-insights.ecommerce.all_sessions_raw`";
 
 	/* This is for removing duplicate sessions not tested yet but on bigquery validated well*/
@@ -39,7 +39,7 @@ public class AllSessionRawCleanupApp {
 		org.apache.beam.sdk.Pipeline pipeline = org.apache.beam.sdk.Pipeline.create(options);
 
 		PCollection<TableRow> inputRows = pipeline.apply("Reading Data", BigQueryIO.readTableRows()
-				.fromQuery(SELECT_1000_RECORDS).usingStandardSql());
+				.fromQuery(SELECT_ALL_RECORDS).usingStandardSql());
 
 		PCollection<TableRow> transformedRows 
 			= inputRows.apply("Transforming Rows", ParDo.of(new AllSessionRawTrasformRowFn()));
