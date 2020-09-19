@@ -20,7 +20,7 @@ public class AllSessionRawCleanupApp {
 
 	/* This is to test 1000 records and it worked */
 	public static final String SELECT_1000_RECORDS 
-	= "SELECT * FROM `data-to-insights.ecommerce.all_sessions_raw` LIMIT 1000";
+	= "SELECT * FROM `data-to-insights.ecommerce.all_sessions_raw`";
 
 	/* This is for removing duplicate sessions not tested yet but on bigquery validated well*/
 	private static final String SELECT_DEDUPLICATED_RECORDS = "WITH cte as (SELECT" + 
