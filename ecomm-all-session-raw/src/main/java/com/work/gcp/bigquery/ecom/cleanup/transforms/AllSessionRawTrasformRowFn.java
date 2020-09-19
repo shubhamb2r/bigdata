@@ -7,50 +7,64 @@ import com.work.gcp.bigquery.ecom.cleanup.common.ApplicationConstants;
 import com.work.gcp.bigquery.ecom.cleanup.common.CommonUtils;
 import com.work.gcp.bigquery.ecom.cleanup.common.SchemaConstants;
 
+/**
+ * A transformation class for all_session_raw 
+ * table
+ * 
+ * @author spaldewar
+ *
+ */
 public class AllSessionRawTrasformRowFn extends DoFn<TableRow, TableRow> {
 
 	private static final long serialVersionUID = 6370771400604013101L;
 
+	/**
+	 * method to process the input tableRows and
+	 * provides a desired output tableRow
+	 * 
+	 * 
+	 * @param context
+	 */
 	@ProcessElement
 	public void processElement(ProcessContext context) {
 		TableRow row = context.element();
 
 
 		Double totalTransactionRevenue = 
-				CommonUtils.convertStringToOutputDouble(row.get(SchemaConstants.TOTAL_TRANSACTION_REVENUE));
+				CommonUtils.transformObjectToRequiredDoubleValue(row.get(SchemaConstants.TOTAL_TRANSACTION_REVENUE));
 
 		if((Double.compare(totalTransactionRevenue, ApplicationConstants.ZERO) != 0) 
 				&& ApplicationConstants.PAGE.equals(row.get(SchemaConstants.TYPE))) {
 
 			row.put(SchemaConstants.CITY, 
-					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.CITY)));
+					CommonUtils.transformObjectToRequiredStringValue(row.get(SchemaConstants.CITY)));
 			row.put(SchemaConstants.PRODUCT_VARIENT, 
-					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.PRODUCT_VARIENT)));
+					CommonUtils.transformObjectToRequiredStringValue(row.get(SchemaConstants.PRODUCT_VARIENT)));
 			row.put(SchemaConstants.ECOM_ACT_OPTION, 
-					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.ECOM_ACT_OPTION)));
+					CommonUtils.transformObjectToRequiredStringValue(row.get(SchemaConstants.ECOM_ACT_OPTION)));
 			row.put(SchemaConstants.TOTAL_TRANSACTION_REVENUE, totalTransactionRevenue);
 			row.put(SchemaConstants.TRANSACTION, 
-					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.TRANSACTION)));
+					CommonUtils.transformObjectToRequiredIntegerValue(row.get(SchemaConstants.TRANSACTION)));
 			row.put(SchemaConstants.TIME_ON_SITE, 
-					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.TIME_ON_SITE)));
+					CommonUtils.transformObjectToRequiredIntegerValue(row.get(SchemaConstants.TIME_ON_SITE)));
 			row.put(SchemaConstants.TIME_ON_SITE, 
-					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.TIME_ON_SITE)));
+					CommonUtils.transformObjectToRequiredIntegerValue(row.get(SchemaConstants.TIME_ON_SITE)));
 			row.put(SchemaConstants.SESSION_QUALITY_DIM, 
-					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.SESSION_QUALITY_DIM)));
+					CommonUtils.transformObjectToRequiredIntegerValue(row.get(SchemaConstants.SESSION_QUALITY_DIM)));
 			row.put(SchemaConstants.PRODUCT_REFUND_AMT, 
-					CommonUtils.convertStringToOutputDouble(row.get(SchemaConstants.PRODUCT_REFUND_AMT)));
+					CommonUtils.transformObjectToRequiredDoubleValue(row.get(SchemaConstants.PRODUCT_REFUND_AMT)));
 			row.put(SchemaConstants.PRODUCT_QUANTITY, 
-					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.PRODUCT_QUANTITY)));
+					CommonUtils.transformObjectToRequiredIntegerValue(row.get(SchemaConstants.PRODUCT_QUANTITY)));
 			row.put(SchemaConstants.PRODUCT_REVENUE, 
-					CommonUtils.convertStringToOutputDouble(row.get(SchemaConstants.PRODUCT_REVENUE)));
+					CommonUtils.transformObjectToRequiredDoubleValue(row.get(SchemaConstants.PRODUCT_REVENUE)));
 			row.put(SchemaConstants.TRANSACTION_REVENUE, 
-					CommonUtils.convertStringToOutputLong(row.get(SchemaConstants.TRANSACTION_REVENUE)));
+					CommonUtils.transformObjectToRequiredLongValue(row.get(SchemaConstants.TRANSACTION_REVENUE)));
 			row.put(SchemaConstants.TRANSACTION_ID, 
-					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.TRANSACTION_ID)));
+					CommonUtils.transformObjectToRequiredStringValue(row.get(SchemaConstants.TRANSACTION_ID)));
 			row.put(SchemaConstants.ECOM_ACT_OPTION, 
-					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.ECOM_ACT_OPTION)));
+					CommonUtils.transformObjectToRequiredStringValue(row.get(SchemaConstants.ECOM_ACT_OPTION)));
 			row.put(SchemaConstants.DATE, 
-					CommonUtils.convertToDate(row.get(SchemaConstants.DATE)));
+					CommonUtils.convertObjectToDateInString(row.get(SchemaConstants.DATE)));
 
 
 			row.put(SchemaConstants.UNIQUE_SESSION_ID_C, CommonUtils.createUniqueSessionId(
@@ -65,6 +79,10 @@ public class AllSessionRawTrasformRowFn extends DoFn<TableRow, TableRow> {
 		}
 	}
 
+	/**
+	 * @param ecommActionType
+	 * @return string
+	 */
 	private static String getActionLable(Object ecommActionType) {
 		String result = null;
 		Integer input = (null != ecommActionType) ? Integer.valueOf(ecommActionType.toString()) : 0;
@@ -99,6 +117,7 @@ public class AllSessionRawTrasformRowFn extends DoFn<TableRow, TableRow> {
 		}
 		return result;
 	}
-
+	
+	
 
 }

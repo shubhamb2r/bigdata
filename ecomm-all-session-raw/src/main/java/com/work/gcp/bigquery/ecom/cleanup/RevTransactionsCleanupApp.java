@@ -12,6 +12,13 @@ import com.google.api.services.bigquery.model.TableRow;
 import com.work.gcp.bigquery.ecom.cleanup.schema.RevTransactionsSchema;
 import com.work.gcp.bigquery.ecom.cleanup.transforms.RevTransactionsTrasformRowFn;
 
+/**
+ * 
+ * A pipeline for rev_transactions table
+ * 
+ * @author spaldewar
+ *
+ */
 public class RevTransactionsCleanupApp {
 	
 	public static final String SELECT_ALL_REV_TRANSACTIONS

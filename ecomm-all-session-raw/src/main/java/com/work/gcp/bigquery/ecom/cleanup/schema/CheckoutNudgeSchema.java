@@ -6,6 +6,12 @@ import com.google.api.services.bigquery.model.TableFieldSchema;
 import com.google.api.services.bigquery.model.TableSchema;
 import com.work.gcp.bigquery.ecom.cleanup.common.SchemaConstants;
 
+/**
+ * schema for checkout_nudge table
+ * 
+ * @author spaldewar
+ *
+ */
 public final class CheckoutNudgeSchema {
 
 	//BigQuery dataTypes

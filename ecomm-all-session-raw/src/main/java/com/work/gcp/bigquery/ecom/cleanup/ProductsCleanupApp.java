@@ -12,6 +12,12 @@ import com.google.api.services.bigquery.model.TableRow;
 import com.work.gcp.bigquery.ecom.cleanup.schema.ProductsSchema;
 import com.work.gcp.bigquery.ecom.cleanup.transforms.ProductsTrasformRowFn;
 
+/**
+ * A pipeline for products table
+ * 
+ * @author spaldewar
+ *
+ */
 public class ProductsCleanupApp {
 	
 	public static final String SELECT_ALL_PRODUCTS

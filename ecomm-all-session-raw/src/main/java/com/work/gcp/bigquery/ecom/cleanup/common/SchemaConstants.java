@@ -1,5 +1,12 @@
 package com.work.gcp.bigquery.ecom.cleanup.common;
 
+/**
+ * 
+ * All tables column names
+ * 
+ * @author spaldewar
+ *
+ */
 public final class SchemaConstants {
 
 	 public static final String FULL_VISITOR_ID = "fullVisitorId";

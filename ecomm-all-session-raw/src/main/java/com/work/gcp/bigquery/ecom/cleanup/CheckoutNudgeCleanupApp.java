@@ -12,6 +12,12 @@ import com.google.api.services.bigquery.model.TableRow;
 import com.work.gcp.bigquery.ecom.cleanup.schema.CheckoutNudgeSchema;
 import com.work.gcp.bigquery.ecom.cleanup.transforms.CheckoutNudgeTrasformRowFn;
 
+/**
+ * pipeline for checkout_nudge
+ * 
+ * @author spaldewar
+ *
+ */
 public class CheckoutNudgeCleanupApp {
 	
 	public static final String SELECT_ALL_CHECKOUT_NUDGE

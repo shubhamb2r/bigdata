@@ -13,6 +13,8 @@ import com.work.gcp.bigquery.ecom.cleanup.schema.CategoriesSchema;
 import com.work.gcp.bigquery.ecom.cleanup.transforms.CategoriesTransformRowFn;
 
 /**
+ * pipeline for categories table
+ * 
  * left with deduplication and formatting the category colunm
  * 
  * @author spaldewar

@@ -13,7 +13,10 @@ import com.work.gcp.bigquery.ecom.cleanup.schema.AllSessionRawSchema;
 import com.work.gcp.bigquery.ecom.cleanup.transforms.AllSessionRawTrasformRowFn;
 
 /**
- * Hello world!
+ * 
+ * Pipeline for all_session_raw
+ * 
+ * @author spaldewar
  *
  */
 public class AllSessionRawCleanupApp {
@@ -30,7 +33,6 @@ public class AllSessionRawCleanupApp {
 			"SELECT * FROM cte WHERE idx = 1";
 
 	public static void main( String[] args) {
-
 
 		PipelineOptions options = PipelineOptionsFactory
 				.fromArgs(args).withValidation().as(PipelineOptions.class);

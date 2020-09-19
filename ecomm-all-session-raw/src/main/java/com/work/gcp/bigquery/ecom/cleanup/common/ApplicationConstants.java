@@ -1,5 +1,11 @@
 package com.work.gcp.bigquery.ecom.cleanup.common;
 
+/**
+ * A constant file
+ * 
+ * @author spaldewar
+ *
+ */
 public final class ApplicationConstants {
 	
 	public static final Double ZERO = 0D;

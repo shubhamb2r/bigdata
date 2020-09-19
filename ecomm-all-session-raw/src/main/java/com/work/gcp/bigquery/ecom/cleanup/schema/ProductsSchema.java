@@ -6,6 +6,12 @@ import com.google.api.services.bigquery.model.TableFieldSchema;
 import com.google.api.services.bigquery.model.TableSchema;
 import com.work.gcp.bigquery.ecom.cleanup.common.SchemaConstants;
 
+/**
+ * schema for products table
+ * 
+ * @author spaldewar
+ *
+ */
 public class ProductsSchema {
 
 	//BigQuery dataTypes

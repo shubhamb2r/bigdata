@@ -5,13 +5,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 
+ * A utility class for transformations 
+ * of values 
+ * 
+ * @author spaldewar
+ *
+ */
 public class CommonUtils {
 	
-	private static final Double ZERO = 0D;
-
 	private CommonUtils() {}
 	
-	public static String convertStringToOutputString(Object input) {
+	/**
+	 * @param input
+	 * @return String
+	 * 
+	 */
+	public static String transformObjectToRequiredStringValue(Object input) {
 
 		if(null == input || "null".equals(input) 
 				|| "not available in demo dataset".equals(input) 
@@ -22,16 +33,31 @@ public class CommonUtils {
 		}
 	}
 
-	public static Double convertStringToOutputDouble(Object input) {
+	/**
+	 * 
+	 * Method transforms null object to 0D
+	 * or to respective Double value
+	 * 
+	 * @param input
+	 * @return Double
+	 */
+	public static Double transformObjectToRequiredDoubleValue(Object input) {
 
 		if(null == input || "null".equals(input)) {
-			return ZERO;
+			return ApplicationConstants.ZERO;
 		} else {
 			return Double.valueOf(input.toString());
 		}
 	}
 
-	public static Integer convertStringToOutputInteger(Object input) {
+	/**
+	 * Method transforms null object to 0
+	 * or to respective Integer value
+	 * 
+	 * @param input
+	 * @return Integer
+	 */
+	public static Integer transformObjectToRequiredIntegerValue(Object input) {
 
 		if(null == input || "null".equals(input)) {
 			return 0;
@@ -40,7 +66,15 @@ public class CommonUtils {
 		}
 	}
 	
-	public static Long convertStringToOutputLong(Object input) {
+	
+	/**
+	 * Method transforms null object to 0L
+	 * or to respective Long value
+	 * 
+	 * @param input
+	 * @return Long
+	 */
+	public static Long transformObjectToRequiredLongValue(Object input) {
 
 		if(null == input || "null".equals(input)) {
 			return 0L;
@@ -49,7 +83,14 @@ public class CommonUtils {
 		}
 	}
 	
-	public static String convertToDate(Object input) {
+	/**
+	 * Method formats string to bigquery required 
+	 * date
+	 * 
+	 * @param input
+	 * @return date in string
+	 */
+	public static String convertObjectToDateInString(Object input) {
 		String dateInString = null;
 		try {
 			if (null != input) {
@@ -62,6 +103,14 @@ public class CommonUtils {
 		return dateInString;
 	}
 	
+	/**
+	 * Method to create uniqueSessionId
+	 * from fullVisitorId and visitId
+	 * 
+	 * @param fullVisitorId
+	 * @param visitId
+	 * @return uniqueSessionId
+	 */
 	public static String createUniqueSessionId(Object fullVisitorId, Object visitId) {
 		String uniqueSessionId = null;
 

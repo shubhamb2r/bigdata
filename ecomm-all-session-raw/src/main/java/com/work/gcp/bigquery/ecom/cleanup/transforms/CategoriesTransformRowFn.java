@@ -8,6 +8,14 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.api.services.bigquery.model.TableRow;
 import com.work.gcp.bigquery.ecom.cleanup.common.SchemaConstants;
 
+/**
+ * 
+ * A transformation class for categories 
+ * table
+ * 
+ * @author spaldewar
+ *
+ */
 public class CategoriesTransformRowFn extends DoFn<TableRow, TableRow> {
 
 	private static final long serialVersionUID = 9221929370293995789L;
@@ -19,6 +27,12 @@ public class CategoriesTransformRowFn extends DoFn<TableRow, TableRow> {
 	// not worked in java get data between last and last but one slash
 	private static Pattern BETWEEN_LAST_TWO_SLASHES = Pattern.compile(".*\\/(.*)\\/");
 
+	/**
+	 * method to process the input tableRows and
+	 * provides a desired output tableRow
+	 * 
+	 * @param context
+	 */
 	@ProcessElement
 	public void processElement(ProcessContext context) {
 		TableRow row = context.element();
