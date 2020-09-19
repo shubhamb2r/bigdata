@@ -44,7 +44,7 @@ public class AllSessionRawTrasformRowFn extends DoFn<TableRow, TableRow> {
 			row.put(SchemaConstants.PRODUCT_REVENUE, 
 					CommonUtils.convertStringToOutputDouble(row.get(SchemaConstants.PRODUCT_REVENUE)));
 			row.put(SchemaConstants.TRANSACTION_REVENUE, 
-					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.TRANSACTION_REVENUE)));
+					CommonUtils.convertStringToOutputLong(row.get(SchemaConstants.TRANSACTION_REVENUE)));
 			row.put(SchemaConstants.TRANSACTION_ID, 
 					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.TRANSACTION_ID)));
 			row.put(SchemaConstants.ECOM_ACT_OPTION, 
