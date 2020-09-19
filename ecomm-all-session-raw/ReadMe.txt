@@ -14,7 +14,7 @@ Qwicklabs  - https://www.qwiklabs.com/focuses/4415?parent=catalog
 
 ============== All_Session_raw pipeline =============================================================
 -- REmove duplicate is pending.
--- removing slash from category is pending
+-- removing slash from category is pending	// lets not remove it as in both(all_session_raw and category) table the names are with slash (only trimmed)
 
 
 -- Converting the productSKU column data type to String			-- automatically it is taking string type
@@ -35,7 +35,8 @@ Enriching the data
 -- Adjusting values in the totalTransactionRevenue column
 		totalTransactionRevenue1 = totalTransactionRevenue / 1000000
 		
-		
+To run all_Session_raw pipeline, us following command		
+
 mvn compile exec:java \
       -Dexec.mainClass=com.work.gcp.bigquery.ecom.cleanup.AllSessionRawCleanupApp \
       -Dexec.args="--project=focus-task-271908 \
@@ -58,6 +59,16 @@ Note ::: for one issue I have removed column searchKeyword
 -- removing slash from category is pending
 -- running and testing is pending
 
+To run this pipeline, us following command
+
+mvn compile exec:java \
+      -Dexec.mainClass=com.work.gcp.bigquery.ecom.cleanup.CategoriesCleanupApp \
+      -Dexec.args="--project=focus-task-271908 \
+      --stagingLocation=gs://word-count-result/bq-results \
+      --runner=DataflowRunner \
+      --numWorkers=2
+	  --region=asia-southeast1"  -Pdataflow-runner
+
 
 
 ========== for products pipeline =========================================================================
@@ -67,17 +78,54 @@ Remove starting and trailing whitespaces for name column
 for other columns make 0 if null
 Remove dupicates if any
 
+To run this pipeline, us following command
+
+mvn compile exec:java \
+      -Dexec.mainClass=com.work.gcp.bigquery.ecom.cleanup.ProductsCleanupApp \
+      -Dexec.args="--project=focus-task-271908 \
+      --stagingLocation=gs://word-count-result/bq-results \
+      --runner=DataflowRunner \
+      --numWorkers=2
+	  --region=asia-southeast1"  -Pdataflow-runner
+
 
 ============ for checkout_nudge pipeline =========================================================================
 
+To run this pipeline, us following command
+
+mvn compile exec:java \
+      -Dexec.mainClass=com.work.gcp.bigquery.ecom.cleanup.CheckoutNudgeCleanupApp \
+      -Dexec.args="--project=focus-task-271908 \
+      --stagingLocation=gs://word-count-result/bq-results \
+      --runner=DataflowRunner \
+      --numWorkers=2
+	  --region=asia-southeast1"  -Pdataflow-runner
 
 
 ========= for rev_transactions pipeline =========================================================================
 made same operations as all_sessions_raw
 
 
+To run this pipeline, us following command
+
+mvn compile exec:java \
+      -Dexec.mainClass=com.work.gcp.bigquery.ecom.cleanup.RevTransactionsCleanupApp \
+      -Dexec.args="--project=focus-task-271908 \
+      --stagingLocation=gs://word-count-result/bq-results \
+      --runner=DataflowRunner \
+      --numWorkers=2
+	  --region=asia-southeast1"  -Pdataflow-runner
+	  
+	  
+	  
+	  
+	  
 
 
 Once transformation is done 
 	-	change this pipeline to accept values through options and from command or a json
 	-	create a single pipeline to transform multiple tables (need some R & D)
+	
+	
+	
+	
