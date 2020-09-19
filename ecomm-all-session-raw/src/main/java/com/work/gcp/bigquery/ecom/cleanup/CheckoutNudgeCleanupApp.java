@@ -21,7 +21,7 @@ public class CheckoutNudgeCleanupApp {
 		
 		PipelineOptions options = PipelineOptionsFactory
 				.fromArgs(args).withValidation().as(PipelineOptions.class);
-		options.setJobName("cleanup-ecomm-checkout_nudge");
+		options.setJobName("cleanup-ecomm-checkout-nudge");
 
 		org.apache.beam.sdk.Pipeline pipeline = org.apache.beam.sdk.Pipeline.create(options);
 

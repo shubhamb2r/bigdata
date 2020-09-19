@@ -21,7 +21,7 @@ public class RevTransactionsCleanupApp {
 		
 		PipelineOptions options = PipelineOptionsFactory
 				.fromArgs(args).withValidation().as(PipelineOptions.class);
-		options.setJobName("cleanup-ecomm-rev_transactions");
+		options.setJobName("cleanup-ecomm-rev-transactions");
 
 		org.apache.beam.sdk.Pipeline pipeline = org.apache.beam.sdk.Pipeline.create(options);
 
