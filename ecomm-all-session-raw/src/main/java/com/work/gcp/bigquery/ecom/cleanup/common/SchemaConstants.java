@@ -75,6 +75,8 @@ public final class SchemaConstants {
 	 public static final String HITS_PAGE_PAGEPATHLEVEL1 = "hits_page_pagePathLevel1";
 	 public static final String TOTALS_TOTAL_TRAN_REVENUE_MANIPULATED = "totals_totalTransactionRevenue1";
 	 
+	 public static final String CHECKOUT_NUDGE_FULL_VISITOR_ID = "fullVisitorID";
+	 
 	 
 	 private SchemaConstants() {}
 }

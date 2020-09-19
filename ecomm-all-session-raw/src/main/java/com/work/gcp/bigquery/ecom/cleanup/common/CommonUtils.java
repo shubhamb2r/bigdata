@@ -40,6 +40,15 @@ public class CommonUtils {
 		}
 	}
 	
+	public static Long convertStringToOutputLong(Object input) {
+
+		if(null == input || "null".equals(input)) {
+			return 0L;
+		} else {
+			return Long.parseLong(input.toString());
+		}
+	}
+	
 	public static String convertToDate(Object input) {
 		String dateInString = null;
 		try {
@@ -61,5 +70,8 @@ public class CommonUtils {
 
 		return uniqueSessionId;
 	}
-
+	
+	
 }
+
+

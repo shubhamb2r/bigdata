@@ -27,7 +27,7 @@ public final class CheckoutNudgeSchema {
 				new TableFieldSchema().setName(SchemaConstants.NO_OF_SESSIONS).setType(INT64),
 				new TableFieldSchema().setName(SchemaConstants.NO_OF_PRODUCTS_VIEWED).setType(INT64),
 				new TableFieldSchema().setName(SchemaConstants.SESSION_TIME_ON_SITE_MINUTE_MAX).setType(FLOAT64),
-				new TableFieldSchema().setName(SchemaConstants.ECOMM_ACTION_TYPE_MAX).setType(STRING)
+				new TableFieldSchema().setName(SchemaConstants.ECOMM_ACTION_TYPE_MAX).setType(INT64)
 			));
 	} 
 

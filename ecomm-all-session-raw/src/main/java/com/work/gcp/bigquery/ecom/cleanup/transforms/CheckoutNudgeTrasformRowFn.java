@@ -14,12 +14,12 @@ public class CheckoutNudgeTrasformRowFn extends DoFn<TableRow, TableRow> {
 	public void processElement(ProcessContext context) {
 		TableRow row = context.element();
 		
-		Object fullVisitorId =  row.get(SchemaConstants.FULL_VISITOR_ID);
+		Object fullVisitorId =  row.get(SchemaConstants.CHECKOUT_NUDGE_FULL_VISITOR_ID);
 
 		if (fullVisitorId != null) {
 
-			row.put(SchemaConstants.FULL_VISITOR_ID, 
-					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.FULL_VISITOR_ID)));
+			row.put(SchemaConstants.CHECKOUT_NUDGE_FULL_VISITOR_ID, 
+					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.CHECKOUT_NUDGE_FULL_VISITOR_ID)));
 			row.put(SchemaConstants.NO_OF_SESSIONS, 
 					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.NO_OF_SESSIONS)));
 			row.put(SchemaConstants.NO_OF_PRODUCTS_VIEWED, 
@@ -27,7 +27,7 @@ public class CheckoutNudgeTrasformRowFn extends DoFn<TableRow, TableRow> {
 			row.put(SchemaConstants.SESSION_TIME_ON_SITE_MINUTE_MAX, 
 					CommonUtils.convertStringToOutputDouble(row.get(SchemaConstants.SESSION_TIME_ON_SITE_MINUTE_MAX)));
 			row.put(SchemaConstants.ECOMM_ACTION_TYPE_MAX, 
-					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.ECOMM_ACTION_TYPE_MAX)));
+					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.ECOMM_ACTION_TYPE_MAX)));
 			// get these rows as output PCollection
 			context.output(row);
 		}

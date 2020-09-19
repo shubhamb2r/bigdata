@@ -38,7 +38,7 @@ public class RevTransactionsTrasformRowFn extends DoFn<TableRow, TableRow> {
 			row.put(SchemaConstants.HITS_PRODUCT_PRODUCTREVENUE, 
 					CommonUtils.convertStringToOutputDouble(row.get(SchemaConstants.HITS_PRODUCT_PRODUCTREVENUE)));
 			row.put(SchemaConstants.HITS_TRANSACTION_TRANSACTIONREVENUE, 
-					CommonUtils.convertStringToOutputInteger(row.get(SchemaConstants.HITS_TRANSACTION_TRANSACTIONREVENUE)));
+					CommonUtils.convertStringToOutputLong(row.get(SchemaConstants.HITS_TRANSACTION_TRANSACTIONREVENUE)));
 			row.put(SchemaConstants.HITS_TRANSACTION_TRANSACTIONID, 
 					CommonUtils.convertStringToOutputString(row.get(SchemaConstants.HITS_TRANSACTION_TRANSACTIONID)));
 			row.put(SchemaConstants.DATE, 
