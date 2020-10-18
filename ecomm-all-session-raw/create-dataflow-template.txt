@@ -1,0 +1,76 @@
+Dataflow Template 
+
+Dataflow templates allow you to stage your pipelines on Google Cloud and run them using the Google Cloud Console.
+	Types 
+		Classic Template
+			Classic templates are staged as execution graphs on Cloud Storage.
+			Developers run the pipeline and create a template. The Apache Beam SDK stages files in Cloud Storage, creates a template file (similar to job request), and saves the template file in Cloud Storage.
+		Flex Template
+			Flex Templates package the pipeline as a Docker image and stage these images on your project's Container Registry.
+			Developers package the pipeline into a Docker image and then use the gcloud command-line tool to build and save the Flex Template spec file in Cloud Storage.
+	Benefits of creating
+			Running your pipeline does not require you to recompile your code every time.
+			Developer's just create the pipeline in developement environment and stage it, and any non technical 
+
+	Creating classic template
+		1.	Prepare pipeline sourcecode on development environment.
+		2.	Modifying your code to use runtime parameters (since I have not used PipelineOptions in my pipeline it was not 		applicable for me), these are used to provide different types of values to pipeline, it's of diferent type (ValueProvider, StaticValueProvider, NestedValueProvider) and used depends on situaltion.
+		3.	Create Metadata (Mandatory)
+			You can extend your templates with additional metadata so that custom parameters are validated when the template executes.
+			create <template-name>_metadata without any extension to file and add following json.
+					{
+						"description": "An example pipeline that counts words in the input file.",
+						"name": "Word Count",
+						"parameters": [ // pipeline parameters (pass empty array in case not applicable)
+							{
+								"regexes": [ "^gs:\\/\\/[^\\n\\r]+$" ],
+								"name": "inputFile",
+								"helpText": "Path of the file pattern glob to read from. ex: gs://dataflow-samples/shakespeare/kinglear.txt",
+								"label": "Input Cloud Storage file(s)"
+							},
+							{
+								"regexes": [ "^gs:\\/\\/[^\\n\\r]+$" ],
+								"name": "output",
+								"helpText": "Path and filename prefix for writing output files. ex: gs://MyBucket/counts",
+								"label": "Output Cloud Storage file(s)"
+							}
+						]
+					}
+			once created save it in same directory of cloud storage where you are planning to store the template.
+
+		4.	Creating and staging templates
+				use following command to do that
+					mvn compile exec:java \
+					-Dexec.mainClass=com.example.myclass \
+					-Dexec.args="--runner=DataflowRunner \
+					--project=YOUR_PROJECT_ID \
+					--stagingLocation=gs://YOUR_BUCKET_NAME/staging \
+					--templateLocation=gs://YOUR_BUCKET_NAME/templates/YOUR_TEMPLATE_NAME"
+
+				In my case,
+					mvn compile exec:java \
+					-Dexec.mainClass=com.work.gcp.bigquery.ecom.cleanup.AllSessionRawCleanupApp \
+					-Dexec.args="--project=focus-task-271908 \
+					--stagingLocation=gs://word-count-result/bq-results \
+					--templateLocation=gs://dataflow-template123/templates/allsessionrawcleanupapp \
+					--runner=DataflowRunner \
+					--region=asia-southeast1" -Pdataflow-runner
+
+			Once this command is executed in your root directory of sourcecode, a dataflow template at provided location is created, you can verify it going into provided path in cloud storage.
+
+		5. Running the template
+			as our template is stagged, now you can use it as many times as you want.
+			You can run the job then through either gcp console or through cloud SDK.
+			Through UI
+				dataflow -> Create job from template -> enter fields like job name.
+				select dataflow template
+				custom and choose from your storage location (remember metadata file of template should also be present at this location).
+				Click on run job.
+			Through SDK (Google Command line)
+				gcloud dataflow jobs run JOB_NAME \
+				--gcs-location gs://YOUR_BUCKET_NAME/templates/MyTemplate \
+				--parameters inputFile=gs://YOUR_BUCKET_NAME/input/my_input.txt,outputFile=gs://YOUR_BUCKET_NAME/output/my_output
+
+Once this is done, you will see your template is stagged at given location in cloud storage.
+
+and BOOOM, thats it !!!!

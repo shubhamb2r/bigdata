@@ -1,5 +1,6 @@
 package com.work.gcp.bigquery.ecom.cleanup;
 
+import org.apache.beam.sdk.PipelineResult;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO.Write.CreateDisposition;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO.Write.WriteDisposition;
@@ -44,7 +45,7 @@ public class AllSessionRawCleanupApp {
 				.fromQuery(SELECT_ALL_RECORDS).usingStandardSql());
 
 		PCollection<TableRow> transformedRows 
-			= inputRows.apply("Transforming Rows", ParDo.of(new AllSessionRawTrasformRowFn()));
+		= inputRows.apply("Transforming Rows", ParDo.of(new AllSessionRawTrasformRowFn()));
 
 		//deduplication pending
 
@@ -55,8 +56,18 @@ public class AllSessionRawCleanupApp {
 				.withCreateDisposition(CreateDisposition.CREATE_IF_NEEDED)
 				.withWriteDisposition(WriteDisposition.WRITE_APPEND).withoutValidation());
 
-		pipeline.run().waitUntilFinish();
-
-
+		PipelineResult result = pipeline.run();
+		try {
+			result.getState();
+			result.waitUntilFinish();
+		} catch (UnsupportedOperationException e) {
+			// do nothing
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
+
+
+
+

@@ -1,5 +1,6 @@
 package com.work.gcp.bigquery.ecom.cleanup;
 
+import org.apache.beam.sdk.PipelineResult;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO.Write.CreateDisposition;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO.Write.WriteDisposition;
@@ -21,12 +22,12 @@ import com.work.gcp.bigquery.ecom.cleanup.transforms.CategoriesTransformRowFn;
  *
  */
 public class CategoriesCleanupApp {
-	
+
 	public static final String SELECT_ALL_CATAGORIES
-			= "SELECT * FROM `data-to-insights.ecommerce.categories`";
+	= "SELECT * FROM `data-to-insights.ecommerce.categories`";
 
 	public static void main( String[] args) {
-		
+
 		PipelineOptions options = PipelineOptionsFactory
 				.fromArgs(args).withValidation().as(PipelineOptions.class);
 		options.setJobName("cleanup-ecomm-catagories");
@@ -37,7 +38,7 @@ public class CategoriesCleanupApp {
 				.fromQuery(SELECT_ALL_CATAGORIES).usingStandardSql());
 
 		PCollection<TableRow> transformedRows 
-			= inputRows.apply("Transforming Rows", ParDo.of(new CategoriesTransformRowFn()));
+		= inputRows.apply("Transforming Rows", ParDo.of(new CategoriesTransformRowFn()));
 
 
 		transformedRows.apply("Writing Output", 
@@ -47,10 +48,18 @@ public class CategoriesCleanupApp {
 				.withWriteDisposition(WriteDisposition.WRITE_APPEND).withoutValidation());
 
 
-		pipeline.run().waitUntilFinish();
+		PipelineResult result = pipeline.run();
+		try {
+			result.getState();
+			result.waitUntilFinish();
+		} catch (UnsupportedOperationException e) {
+			// do nothing
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 
 	}
-	
-	
+
+
 }
